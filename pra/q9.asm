@@ -44,3 +44,35 @@ SKIP: MVI A,00H
       INX B
       STAX B
       JMP CONT
+
+
+
+//ALTERNATIVE SOLUTION
+START: LXI H,8050H
+       LXI D,8070H
+       LXI B,8090H
+
+
+NEXT: LDAX D
+      SUB M
+      STAX B
+      INX H
+      INX D
+      INX B
+      LDAX D
+      SBB M
+      JC TTT
+      STAX B
+  CBC:INX H
+      INX B
+      INX D
+      MOV A,E
+      CPI 85H
+      JC NEXT
+      HLT
+TTT: SUB A
+      STAX B
+      DCX B
+      STAX B
+      INX B
+      JMP CBC
