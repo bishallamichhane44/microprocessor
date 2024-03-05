@@ -1,4 +1,4 @@
-//on my own
+
 START: LXI H 8050H
        LXI D 8070H
        LXI B 8090H
