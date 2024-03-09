@@ -26,6 +26,38 @@ JUMP: DCR C
 
 
 
+;SOLUTION 2
+;COUNT NO OF 1 IN 16 BIT NUMBER FROM TABLE 8240 AND STORE COUNT TO TABLE 8260H
+      LXI D,8240H
+      LXI H,8260H
+      MVI C,0AH    ;NO OF DATA IN TABLE
+    
+	
+ LP:  MVI B,08H
+      LDAX D
+      MVI M,00H
+ROT:  RLC 
+      JNC SKIP
+      INR M        ;COUNTING IN LOWER BYTE
+SKIP: DCR B
+      JNZ ROT
+      MVI B,08H
+      INX D
+      LDAX D
+RTT:  RLC 
+      JNC SKIP2
+      INR M        ;COUNTING IN HIGHER BYTE
+SKIP2:DCR B
+      JNZ RTT
+      INX H
+      MVI M,00H   
+      INX H
+      INX D
+      DCR C
+      JNZ LP
+      HLT
+    
+
 
        
       
