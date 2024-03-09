@@ -1,29 +1,25 @@
-START: LXI D,8445H
-       LXI H,8345H
-       MVI C,0AH
+;BINARY TO BCD FROM 8345 8445 (IF BDC IS < 100)
+     LXI H,8345H
+     LXI D,8445H
+     MVI C,0AH
 
-NEXT: MOV A,M
-      CPI 64H
-      JNC SKIP
-      MOV B,M
-      CALL BCD
-      STAX D
-      INX D
-SKIP: INX H
-      DCR C
-      JNZ NEXT
-      HLT 
-    
-BCD: MOV A,M
+LP2: MOV A,M
+     MOV B,A
      CPI 00H
-     RZ
+     JZ SKIP
      MVI A,00H
-
-LOOP:ANA A
+L1:  ANA A
      ADI 01H
      DAA
+     JC ASY   ; IF CARRY, i.e BCD>100 THEN DON'T SAVE
      DCR B
-     RZ
-     JMP LOOP
-     RET
-     
+     JNZ L1
+SKIP:STAX D
+ASY: INX H
+     INX D
+     DCR C
+     JNZ LP2
+     HLT
+
+
+    
