@@ -8,7 +8,7 @@ LP2: MOV A,M
      CPI 00H
      JZ SKIP
      MVI A,00H
-L1:  ANA A
+L1:  ANA A   ; TO RESET THE FLAGS
      ADI 01H
      DAA
      JC ASY   ; IF CARRY, i.e BCD>100 THEN DON'T SAVE
